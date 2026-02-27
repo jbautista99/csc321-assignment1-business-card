@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Jeremiah (Jerry) R Pallera-Bautista — Business Card</title>
+
+  <style>
+    /* -------------------------
+       Base + Page Layout
+       ------------------------- */
+    :root {
+      --bg1: #0b1220;
+      --bg2: #0b2a3a;
+      --card: rgba(255, 255, 255, 0.08);
+      --card2: rgba(255, 255, 255, 0.06);
+      --border: rgba(255, 255, 255, 0.18);
+      --text: #ecf3ff;
+      --muted: rgba(236, 243, 255, 0.75);
+      --shadow: 0 18px 50px rgba(0,0,0,.45);
+      --radius: 18px;
+
+      --accent: #66e6ff;
+      --accent2: #a78bfa;
+      --cta: #22c55e;
+      --danger: #fb7185;
+    }
+
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body {
+      margin: 0;
+      font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial, "Noto Sans", "Helvetica Neue", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(1000px 600px at 20% 10%, rgba(102, 230, 255, 0.25), transparent 55%),
+        radial-gradient(900px 500px at 80% 15%, rgba(167, 139, 250, 0.22), transparent 60%),
+        radial-gradient(700px 450px at 50% 90%, rgba(34, 197, 94, 0.16), transparent 55%),
+        linear-gradient(145deg, var(--bg1), var(--bg2));
+      display: grid;
+      place-items: center;
+      padding: 32px 16px;
+    }
+
+    /* Main heading required by assignment */
+    header {
+      width: min(980px, 100%);
+      text-align: center;
+      margin-bottom: 18px;
+    }
+    header h1 {
+      margin: 0 0 8px;
+      font-size: clamp(20px, 3.2vw, 30px);
+      letter-spacing: 0.3px;
+    }
+    header p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    /* -------------------------
+       Card Container + 3D Flip
+       ------------------------- */
+    .scene {
+      width: min(420px, 92vw);
+      height: 260px;
+      perspective: 1200px; /* 3D depth */
+    }
+
+    .card {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      transform-style: preserve-3d;
+      transition: transform 900ms cubic-bezier(.2,.8,.2,1);
+      border-radius: var(--radius);
+    }
+
+    /* Flip on hover (requirement) */
+    .scene:hover .card,
+    .scene:focus-within .card {
+      transform: rotateY(180deg);
+    }
+
+    .side {
+      position: absolute;
+      inset: 0;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      overflow: hidden;
+      backface-visibility: hidden; /* prevents mirrored back */
+      background: linear-gradient(135deg, var(--card), var(--card2));
+      padding: 18px;
+      display: grid;
+      grid-template-columns: 112px 1fr;
+      gap: 16px;
+      align-items: center;
+    }
+
+    .back {
+      transform: rotateY(180deg);
+      grid-template-columns: 1fr;
+      gap: 12px;
+      align-items: start;
+    }
+
+    /* Decorative glow edge */
+    .side::before {
+      content: "";
+      position: absolute;
+      inset: -2px;
+      background: conic-gradient(
+        from 200deg,
+        rgba(102, 230, 255, 0.35),
+        rgba(167, 139, 250, 0.30),
+        rgba(34, 197, 94, 0.22),
+        rgba(102, 230, 255, 0.35)
+      );
+      filter: blur(14px);
+      opacity: 0.45;
+      z-index: 0;
+    }
+    .side > * { position: relative; z-index: 1; }
+
+    /* -------------------------
+       Front Content
+       ------------------------- */
+    .avatar-wrap {
+      display: grid;
+      place-items: center;
+    }
+
+    /* Profile image (generated placeholder SVG avatar via data URI) */
+    .avatar {
+      width: 104px;
+      height: 104px;
+      border-radius: 999px;
+      border: 2px solid rgba(255,255,255,0.25);
+      box-shadow: 0 14px 30px rgba(0,0,0,0.35);
+      background-color: rgba(255,255,255,0.07);
+      overflow: hidden;
+    }
+    .avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .front-info h2 {
+      margin: 0;
+      font-size: 18px;
+      line-height: 1.2;
+    }
+    .front-info .role {
+      margin: 6px 0 4px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+    .front-info .company {
+      margin: 0 0 12px;
+      font-weight: 600;
+      letter-spacing: 0.2px;
+      font-size: 13.5px;
+      color: rgba(236,243,255,0.88);
+    }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 8px;
+    }
+
+    .btn, .link-pill {
+      appearance: none;
+      border: 1px solid rgba(255,255,255,0.20);
+      background: rgba(255,255,255,0.06);
+      color: var(--text);
+      padding: 10px 12px;
+      border-radius: 999px;
+      font-size: 13px;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      transition: transform 180ms ease, background 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
+      user-select: none;
+      outline: none;
+    }
+
+    /* Hover interactions requirement */
+    .btn:hover, .link-pill:hover {
+      transform: translateY(-2px);
+      background: rgba(255,255,255,0.10);
+      border-color: rgba(255,255,255,0.35);
+      box-shadow: 0 10px 22px rgba(0,0,0,0.25);
+    }
+
+    /* Focus styles for keyboard users requirement */
+    .btn:focus-visible, .link-pill:focus-visible {
+      box-shadow: 0 0 0 3px rgba(102, 230, 255, 0.35), 0 10px 22px rgba(0,0,0,0.25);
+      border-color: rgba(102,230,255,0.55);
+    }
+
+    .primary {
+      border-color: rgba(102, 230, 255, 0.45);
+      background: linear-gradient(135deg, rgba(102,230,255,0.18), rgba(167,139,250,0.12));
+    }
+    .primary:hover {
+      border-color: rgba(102, 230, 255, 0.75);
+    }
+
+    .small-note {
+      margin-top: 10px;
+      font-size: 12px;
+      color: rgba(236,243,255,0.65);
+    }
+
+    /* -------------------------
+       Back Content
+       ------------------------- */
+    .back h3 {
+      margin: 0;
+      font-size: 16px;
+      letter-spacing: 0.2px;
+    }
+    .bio {
+      margin: 4px 0 10px;
+      color: var(--muted);
+      line-height: 1.45;
+      font-size: 13.5px;
+    }
+
+    .info-grid {
+      display: grid;
+      gap: 10px;
+      margin: 8px 0 6px;
+    }
+    .info {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 10px 12px;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,0.16);
+      background: rgba(255,255,255,0.05);
+    }
+    .label {
+      font-size: 12px;
+      color: rgba(236,243,255,0.70);
+    }
+    .value {
+      font-size: 13px;
+      color: rgba(236,243,255,0.92);
+      text-decoration: none;
+    }
+    .value:hover {
+      color: var(--accent);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+    .value:focus-visible {
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(167, 139, 250, 0.35);
+      border-radius: 8px;
+    }
+
+    .cta-row {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 8px;
+    }
+    .cta {
+      border-color: rgba(34,197,94,0.45);
+      background: linear-gradient(135deg, rgba(34,197,94,0.18), rgba(102,230,255,0.10));
+    }
+    .cta:hover {
+      border-color: rgba(34,197,94,0.75);
+    }
+    .ghost {
+      border-color: rgba(251,113,133,0.35);
+    }
+    .ghost:hover {
+      border-color: rgba(251,113,133,0.65);
+      background: rgba(251,113,133,0.10);
+    }
+
+    /* -------------------------
+       Reduced motion accessibility
+       ------------------------- */
+    @media (prefers-reduced-motion: reduce) {
+      .card, .btn, .link-pill { transition: none; }
+      .scene:hover .card,
+      .scene:focus-within .card { transform: none; }
+      .small-note::after {
+        content: " (Flip disabled due to reduced motion setting.)";
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Step 1: main heading required -->
+  <header>
+    <h1>Jeremiah (Jerry) R Pallera-Bautista Business Card</h1>
+    <p>Hover (or Tab to focus) to flip</p>
+  </header>
+
+  <!-- Step 2: card container + two sides -->
+  <main class="scene" aria-label="Interactive digital business card">
+    <section class="card">
+      <!-- FRONT -->
+      <article class="side front" aria-label="Front of business card">
+        <div class="avatar-wrap">
+          <!--
+            PROFILE IMAGE NOTE:
+            I can't access your account profile photo directly from here.
+            This file uses a generated, neutral SVG avatar placeholder.
+            Replace the src with your own image later (e.g. "pfp.jpg").
+          -->
+          <div class="avatar" title="Profile photo">
+            <img
+              alt="Profile avatar"
+              src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='512' height='512'%3E%3Cdefs%3E%3CradialGradient id='g' cx='30%25' cy='20%25' r='80%25'%3E%3Cstop offset='0%25' stop-color='%2366e6ff'/%3E%3Cstop offset='55%25' stop-color='%23a78bfa'/%3E%3Cstop offset='100%25' stop-color='%230b1220'/%3E%3C/radialGradient%3E%3ClinearGradient id='g2' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0%25' stop-color='%23ffffff' stop-opacity='.22'/%3E%3Cstop offset='100%25' stop-color='%23ffffff' stop-opacity='0'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='512' height='512' rx='256' fill='url(%23g)'/%3E%3Cpath d='M100 430c40-90 115-130 156-130s116 40 156 130' fill='%23ffffff' fill-opacity='.18'/%3E%3Ccircle cx='256' cy='210' r='92' fill='%23ffffff' fill-opacity='.18'/%3E%3Ccircle cx='220' cy='200' r='14' fill='%23ffffff' fill-opacity='.35'/%3E%3Ccircle cx='292' cy='200' r='14' fill='%23ffffff' fill-opacity='.35'/%3E%3Cpath d='M220 250c18 16 54 16 72 0' stroke='%23ffffff' stroke-opacity='.35' stroke-width='10' stroke-linecap='round' fill='none'/%3E%3Crect width='512' height='512' rx='256' fill='url(%23g2)'/%3E%3C/svg%3E"
+            />
+          </div>
+        </div>
+
+        <div class="front-info">
+          <h2>Jeremiah (Jerry) R Pallera-Bautista</h2>
+          <p class="role">CEO</p>
+          <p class="company">Informative Innnovative Technology Solutions</p>
+
+          <!-- Step 3: at least one social link OR one button -->
+          <div class="pill-row">
+            <a class="link-pill" href="https://www.linkedin.com/" target="_blank" rel="noreferrer">
+              <!-- icon -->
+              <span aria-hidden="true">in</span>
+              <span>LinkedIn</span>
+            </a>
+
+            <a class="btn primary" href="#contact" aria-label="Flip to contact details">
+              <span aria-hidden="true">↺</span>
+              <span>View Contact</span>
+            </a>
+          </div>
+
+          <!-- Step 2: small instruction text -->
+          <div class="small-note">Tip: Hover to flip (or press Tab to focus)</div>
+        </div>
+      </article>
+
+      <!-- BACK -->
+      <article class="side back" id="contact" aria-label="Back of business card">
+        <!-- Step 4: short bio (2–4 lines) -->
+        <h3>About</h3>
+        <p class="bio">
+          <!-- Fill in your 2–4 line bio here -->
+          [Write a short 2–4 line bio about your focus, values, and what you help people build.]
+        </p>
+
+        <!-- Step 4: email + phone -->
+        <div class="info-grid" role="list">
+          <div class="info" role="listitem">
+            <span class="label">Email</span>
+            <a class="value" href="mailto:yourname@example.com">yourname@example.com</a>
+          </div>
+          <div class="info" role="listitem">
+            <span class="label">Phone</span>
+            <a class="value" href="tel:+10000000000">+1 (000) 000-0000</a>
+          </div>
+        </div>
+
+        <!-- Step 4: one call-to-action button -->
+        <div class="cta-row">
+          <a class="btn cta" href="https://calendly.com/" target="_blank" rel="noreferrer">
+            <span aria-hidden="true">📅</span>
+            <span>Book a Call</span>
+          </a>
+
+          <a class="btn ghost" href="https://www.yourwebsite.com/" target="_blank" rel="noreferrer">
+            <span aria-hidden="true">🌐</span>
+            <span>Website</span>
+          </a>
+        </div>
+
+        <p class="small-note">Hover off the card (or Shift+Tab) to flip back</p>
+      </article>
+    </section>
+  </main>
+</body>
+</html>
