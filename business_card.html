@@ -6,9 +6,6 @@
   <title>Jeremiah (Jerry) R Pallera-Bautista — Business Card</title>
 
   <style>
-    /* -------------------------
-       Base + Page Layout
-       ------------------------- */
     :root {
       --bg1: #0b1220;
       --bg2: #0b2a3a;
@@ -28,6 +25,7 @@
 
     * { box-sizing: border-box; }
     html, body { height: 100%; }
+
     body {
       margin: 0;
       font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial, "Noto Sans", "Helvetica Neue", sans-serif;
@@ -42,7 +40,6 @@
       padding: 32px 16px;
     }
 
-    /* Main heading required by assignment */
     header {
       width: min(980px, 100%);
       text-align: center;
@@ -59,13 +56,10 @@
       font-size: 14px;
     }
 
-    /* -------------------------
-       Card Container + 3D Flip
-       ------------------------- */
     .scene {
       width: min(420px, 92vw);
       height: 260px;
-      perspective: 1200px; /* 3D depth */
+      perspective: 1200px;
     }
 
     .card {
@@ -77,7 +71,6 @@
       border-radius: var(--radius);
     }
 
-    /* Flip on hover (requirement) */
     .scene:hover .card,
     .scene:focus-within .card {
       transform: rotateY(180deg);
@@ -108,7 +101,6 @@
       align-items: start;
     }
 
-    /* Decorative glow edge */
     .side::before {
       content: "";
       position: absolute;
@@ -126,15 +118,8 @@
     }
     .side > * { position: relative; z-index: 1; }
 
-    /* -------------------------
-       Front Content
-       ------------------------- */
-    .avatar-wrap {
-      display: grid;
-      place-items: center;
-    }
+    .avatar-wrap { display: grid; place-items: center; }
 
-    /* Profile image (generated placeholder SVG avatar via data URI) */
     .avatar {
       width: 104px;
       height: 104px;
@@ -143,6 +128,8 @@
       box-shadow: 0 14px 30px rgba(0,0,0,0.35);
       background-color: rgba(255,255,255,0.07);
       overflow: hidden;
+      display: grid;
+      place-items: center;
     }
     .avatar img {
       width: 100%;
@@ -194,7 +181,6 @@
       outline: none;
     }
 
-    /* Hover interactions requirement */
     .btn:hover, .link-pill:hover {
       transform: translateY(-2px);
       background: rgba(255,255,255,0.10);
@@ -202,7 +188,6 @@
       box-shadow: 0 10px 22px rgba(0,0,0,0.25);
     }
 
-    /* Focus styles for keyboard users requirement */
     .btn:focus-visible, .link-pill:focus-visible {
       box-shadow: 0 0 0 3px rgba(102, 230, 255, 0.35), 0 10px 22px rgba(0,0,0,0.25);
       border-color: rgba(102,230,255,0.55);
@@ -212,9 +197,7 @@
       border-color: rgba(102, 230, 255, 0.45);
       background: linear-gradient(135deg, rgba(102,230,255,0.18), rgba(167,139,250,0.12));
     }
-    .primary:hover {
-      border-color: rgba(102, 230, 255, 0.75);
-    }
+    .primary:hover { border-color: rgba(102, 230, 255, 0.75); }
 
     .small-note {
       margin-top: 10px;
@@ -222,9 +205,6 @@
       color: rgba(236,243,255,0.65);
     }
 
-    /* -------------------------
-       Back Content
-       ------------------------- */
     .back h3 {
       margin: 0;
       font-size: 16px;
@@ -252,10 +232,7 @@
       border: 1px solid rgba(255,255,255,0.16);
       background: rgba(255,255,255,0.05);
     }
-    .label {
-      font-size: 12px;
-      color: rgba(236,243,255,0.70);
-    }
+    .label { font-size: 12px; color: rgba(236,243,255,0.70); }
     .value {
       font-size: 13px;
       color: rgba(236,243,255,0.92);
@@ -282,53 +259,33 @@
       border-color: rgba(34,197,94,0.45);
       background: linear-gradient(135deg, rgba(34,197,94,0.18), rgba(102,230,255,0.10));
     }
-    .cta:hover {
-      border-color: rgba(34,197,94,0.75);
-    }
-    .ghost {
-      border-color: rgba(251,113,133,0.35);
-    }
-    .ghost:hover {
-      border-color: rgba(251,113,133,0.65);
-      background: rgba(251,113,133,0.10);
-    }
+    .cta:hover { border-color: rgba(34,197,94,0.75); }
 
-    /* -------------------------
-       Reduced motion accessibility
-       ------------------------- */
     @media (prefers-reduced-motion: reduce) {
       .card, .btn, .link-pill { transition: none; }
       .scene:hover .card,
       .scene:focus-within .card { transform: none; }
-      .small-note::after {
-        content: " (Flip disabled due to reduced motion setting.)";
-      }
+      .small-note::after { content: " (Flip disabled due to reduced motion setting.)"; }
     }
   </style>
 </head>
 
 <body>
-  <!-- Step 1: main heading required -->
   <header>
     <h1>Jeremiah (Jerry) R Pallera-Bautista Business Card</h1>
     <p>Hover (or Tab to focus) to flip</p>
   </header>
 
-  <!-- Step 2: card container + two sides -->
   <main class="scene" aria-label="Interactive digital business card">
     <section class="card">
+
       <!-- FRONT -->
       <article class="side front" aria-label="Front of business card">
         <div class="avatar-wrap">
-          <!--
-            PROFILE IMAGE NOTE:
-            I can't access your account profile photo directly from here.
-            This file uses a generated, neutral SVG avatar placeholder.
-            Replace the src with your own image later (e.g. "pfp.jpg").
-          -->
+          <!-- Replace with your photo later if you want: <img src="pfp.jpg" alt="Jeremiah profile photo"> -->
           <div class="avatar" title="Profile photo">
             <img
-              alt="Profile avatar"
+              alt="Generated profile avatar"
               src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='512' height='512'%3E%3Cdefs%3E%3CradialGradient id='g' cx='30%25' cy='20%25' r='80%25'%3E%3Cstop offset='0%25' stop-color='%2366e6ff'/%3E%3Cstop offset='55%25' stop-color='%23a78bfa'/%3E%3Cstop offset='100%25' stop-color='%230b1220'/%3E%3C/radialGradient%3E%3ClinearGradient id='g2' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0%25' stop-color='%23ffffff' stop-opacity='.22'/%3E%3Cstop offset='100%25' stop-color='%23ffffff' stop-opacity='0'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='512' height='512' rx='256' fill='url(%23g)'/%3E%3Cpath d='M100 430c40-90 115-130 156-130s116 40 156 130' fill='%23ffffff' fill-opacity='.18'/%3E%3Ccircle cx='256' cy='210' r='92' fill='%23ffffff' fill-opacity='.18'/%3E%3Ccircle cx='220' cy='200' r='14' fill='%23ffffff' fill-opacity='.35'/%3E%3Ccircle cx='292' cy='200' r='14' fill='%23ffffff' fill-opacity='.35'/%3E%3Cpath d='M220 250c18 16 54 16 72 0' stroke='%23ffffff' stroke-opacity='.35' stroke-width='10' stroke-linecap='round' fill='none'/%3E%3Crect width='512' height='512' rx='256' fill='url(%23g2)'/%3E%3C/svg%3E"
             />
           </div>
@@ -339,54 +296,59 @@
           <p class="role">CEO</p>
           <p class="company">Informative Innnovative Technology Solutions</p>
 
-          <!-- Step 3: at least one social link OR one button -->
           <div class="pill-row">
-            <a class="link-pill" href="https://www.linkedin.com/" target="_blank" rel="noreferrer">
-              <!-- icon -->
+            <!-- LinkedIn button redirects to your LinkedIn -->
+            <a class="link-pill primary"
+               href="https://www.linkedin.com/in/jeremiah-p-bautista-4877b7200"
+               target="_blank"
+               rel="noopener noreferrer">
               <span aria-hidden="true">in</span>
               <span>LinkedIn</span>
             </a>
 
-            <a class="btn primary" href="#contact" aria-label="Flip to contact details">
+            <a class="link-pill"
+               href="#contact">
               <span aria-hidden="true">↺</span>
               <span>View Contact</span>
             </a>
           </div>
 
-          <!-- Step 2: small instruction text -->
           <div class="small-note">Tip: Hover to flip (or press Tab to focus)</div>
         </div>
       </article>
 
       <!-- BACK -->
       <article class="side back" id="contact" aria-label="Back of business card">
-        <!-- Step 4: short bio (2–4 lines) -->
         <h3>About</h3>
         <p class="bio">
-          <!-- Fill in your 2–4 line bio here -->
-          [If you have any technical issues, you can come to me...Jerry!]
+          [Write a short 2–4 line bio about your focus, values, and what you help people build.]
         </p>
 
-        <!-- Step 4: email + phone -->
         <div class="info-grid" role="list">
           <div class="info" role="listitem">
             <span class="label">Email</span>
-            <a class="value" href="mailto:yourname@example.com">jbautista99@toromail.csudh.edu</a>
+            <a class="value" href="mailto:yourname@example.com">yourname@example.com</a>
           </div>
           <div class="info" role="listitem">
             <span class="label">Phone</span>
-            <a class="value" href="tel:+10000000000">+1 (323) 350-6080</a>
+            <a class="value" href="tel:+10000000000">+1 (000) 000-0000</a>
           </div>
         </div>
 
-        <!-- Step 4: one call-to-action button -->
         <div class="cta-row">
-          <a class="btn cta" href="https://calendly.com/" target="_blank" rel="noreferrer">
+          <a class="btn cta"
+             href="https://calendly.com/"
+             target="_blank"
+             rel="noopener noreferrer">
             <span aria-hidden="true">📅</span>
             <span>Book a Call</span>
           </a>
 
-          <a class="btn ghost" href="https://www.yourwebsite.com/" target="_blank" rel="noreferrer">
+          <!-- Website button ALSO redirects to your LinkedIn -->
+          <a class="btn"
+             href="https://www.linkedin.com/in/jeremiah-p-bautista-4877b7200"
+             target="_blank"
+             rel="noopener noreferrer">
             <span aria-hidden="true">🌐</span>
             <span>Website</span>
           </a>
@@ -394,6 +356,7 @@
 
         <p class="small-note">Hover off the card (or Shift+Tab) to flip back</p>
       </article>
+
     </section>
   </main>
 </body>
