@@ -71,10 +71,7 @@
       border-radius: var(--radius);
     }
 
-    .scene:hover .card,
-    .scene:focus-within .card {
-      transform: rotateY(180deg);
-    }
+    .card.is-flipped { transform: rotateY(180deg); }
 
     .side {
       position: absolute;
@@ -85,7 +82,7 @@
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
       overflow: hidden;
-      backface-visibility: hidden; /* prevents mirrored back */
+      backface-visibility: hidden;
       background: linear-gradient(135deg, var(--card), var(--card2));
       padding: 18px;
       display: grid;
@@ -94,11 +91,14 @@
       align-items: center;
     }
 
+    /* Back: switch to single-column grid and control vertical spacing */
     .back {
       transform: rotateY(180deg);
       grid-template-columns: 1fr;
-      gap: 12px;
+      gap: 10px;            /* was 12px */
       align-items: start;
+      padding: 16px;        /* slightly smaller to free space */
+      grid-template-rows: auto auto auto auto; /* helps keep CTA from dropping too low */
     }
 
     .side::before {
@@ -210,61 +210,71 @@
       font-size: 16px;
       letter-spacing: 0.2px;
     }
+
+    /* Tighten the bio to free vertical space */
     .bio {
-      margin: 4px 0 10px;
+      margin: 2px 0 6px;  /* was 4px 0 10px */
       color: var(--muted);
-      line-height: 1.45;
+      line-height: 1.35; /* slightly tighter */
       font-size: 13.5px;
     }
 
     .info-grid {
       display: grid;
-      gap: 10px;
-      margin: 8px 0 6px;
+      gap: 8px;         /* was 10px */
+      margin: 6px 0 4px;/* was 8px 0 6px */
     }
+
     .info {
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 10px;
-      padding: 10px 12px;
+      padding: 9px 12px; /* slightly smaller */
       border-radius: 12px;
       border: 1px solid rgba(255,255,255,0.16);
       background: rgba(255,255,255,0.05);
     }
+
     .label { font-size: 12px; color: rgba(236,243,255,0.70); }
     .value {
       font-size: 13px;
       color: rgba(236,243,255,0.92);
       text-decoration: none;
     }
+
     .value:hover {
       color: var(--accent);
       text-decoration: underline;
       text-underline-offset: 3px;
     }
+
     .value:focus-visible {
       outline: none;
       box-shadow: 0 0 0 3px rgba(167, 139, 250, 0.35);
       border-radius: 8px;
     }
 
+    /* CTA row: keep it higher by using auto top margin + smaller gap */
     .cta-row {
       display: flex;
-      gap: 10px;
+      gap: 8px;          /* was 10px */
       flex-wrap: wrap;
-      margin-top: 8px;
+      margin-top: auto;  /* pushes CTA row upward within available space */
+      padding-top: 6px;  /* small separation from info grid */
     }
+
     .cta {
       border-color: rgba(34,197,94,0.45);
       background: linear-gradient(135deg, rgba(34,197,94,0.18), rgba(102,230,255,0.10));
     }
     .cta:hover { border-color: rgba(34,197,94,0.75); }
 
+    .flip-btn { border-color: rgba(255,255,255,0.20); }
+
     @media (prefers-reduced-motion: reduce) {
       .card, .btn, .link-pill { transition: none; }
-      .scene:hover .card,
-      .scene:focus-within .card { transform: none; }
+      .card.is-flipped { transform: none; }
       .small-note::after { content: " (Flip disabled due to reduced motion setting.)"; }
     }
   </style>
@@ -273,16 +283,15 @@
 <body>
   <header>
     <h1>Jeremiah (Jerry) R Pallera-Bautista Business Card</h1>
-    <p>Hover (or Tab to focus) to flip</p>
+    <p>Click the card (or the Flip button) to rotate</p>
   </header>
 
   <main class="scene" aria-label="Interactive digital business card">
-    <section class="card">
+    <section class="card" id="card" tabindex="0" role="button" aria-pressed="false" aria-label="Business card. Click to flip.">
 
       <!-- FRONT -->
       <article class="side front" aria-label="Front of business card">
         <div class="avatar-wrap">
-          <!-- Replace with your photo later if you want: <img src="pfp.jpg" alt="Jeremiah profile photo"> -->
           <div class="avatar" title="Profile photo">
             <img
               alt="Generated profile avatar"
@@ -297,67 +306,89 @@
           <p class="company">Informative Innnovative Technology Solutions</p>
 
           <div class="pill-row">
-            <!-- LinkedIn button redirects to your LinkedIn -->
-            <a class="link-pill primary"
-               href="https://www.linkedin.com/in/jeremiah-p-bautista-4877b7200"
-               target="_blank"
-               rel="noopener noreferrer">
+            <a class="link-pill primary" target="_blank" rel="noopener noreferrer"
+               href="https://www.linkedin.com/in/jeremiah-p-bautista-4877b7200">
               <span aria-hidden="true">in</span>
               <span>LinkedIn</span>
             </a>
 
-            <a class="link-pill"
-               href="#contact">
+            <button class="btn flip-btn" type="button" id="flipBtn" aria-label="Flip the card">
               <span aria-hidden="true">↺</span>
-              <span>View Contact</span>
-            </a>
+              <span>Flip</span>
+            </button>
           </div>
 
-          <div class="small-note">Tip: Hover to flip (or press Tab to focus)</div>
+          <div class="small-note">Tip: Click the card to flip (keyboard: Tab then Enter/Space)</div>
         </div>
       </article>
 
       <!-- BACK -->
-      <article class="side back" id="contact" aria-label="Back of business card">
+      <article class="side back" aria-label="Back of business card">
         <h3>About</h3>
         <p class="bio">
-          [Write a short 2–4 line bio about your focus, values, and what you help people build.]
+          If you have any technical difficulties, please reach out to me...Jerry!
         </p>
 
         <div class="info-grid" role="list">
           <div class="info" role="listitem">
             <span class="label">Email</span>
-            <a class="value" href="mailto:yourname@example.com">yourname@example.com</a>
+            <a class="value" href="mailto:jbautista99@toromail.csudh.edu">
+              jbautista99@toromail.csudh.edu
+            </a>
           </div>
           <div class="info" role="listitem">
             <span class="label">Phone</span>
-            <a class="value" href="tel:+10000000000">+1 (000) 000-0000</a>
+            <a class="value" href="tel:+13233506089">
+              (323) 350-6089
+            </a>
           </div>
         </div>
 
         <div class="cta-row">
-          <a class="btn cta"
-             href="https://calendly.com/"
-             target="_blank"
-             rel="noopener noreferrer">
-            <span aria-hidden="true">📅</span>
-            <span>Book a Call</span>
+          <a class="btn cta" href="mailto:jbautista99@toromail.csudh.edu?subject=Tech%20Support%20Request">
+            <span aria-hidden="true">✉️</span>
+            <span>Email Me</span>
           </a>
 
-          <!-- Website button ALSO redirects to your LinkedIn -->
-          <a class="btn"
-             href="https://www.linkedin.com/in/jeremiah-p-bautista-4877b7200"
-             target="_blank"
-             rel="noopener noreferrer">
+          <a class="btn" target="_blank" rel="noopener noreferrer"
+             href="https://www.linkedin.com/in/jeremiah-p-bautista-4877b7200">
             <span aria-hidden="true">🌐</span>
             <span>Website</span>
           </a>
         </div>
 
-        <p class="small-note">Hover off the card (or Shift+Tab) to flip back</p>
+        <p class="small-note">Click the card again to flip back</p>
       </article>
 
     </section>
   </main>
+
+  <script>
+    const card = document.getElementById("card");
+    const flipBtn = document.getElementById("flipBtn");
+
+    function toggleFlip() {
+      const flipped = card.classList.toggle("is-flipped");
+      card.setAttribute("aria-pressed", flipped ? "true" : "false");
+    }
+
+    card.addEventListener("click", (e) => {
+      const isInteractive = e.target.closest("a, button");
+      if (isInteractive) return;
+      toggleFlip();
+    });
+
+    flipBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      toggleFlip();
+    });
+
+    card.addEventListener("keydown", (e) => {
+      if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault();
+        toggleFlip();
+      }
+    });
+  </script>
 </body>
 </html>
